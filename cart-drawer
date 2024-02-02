@@ -1,0 +1,62 @@
+
+{% assign upsell_true  = true %}
+{% assign upsell_product = section.settings.choose_product %}
+
+{% for item in cart.items %}
+
+  {% if item.product.id == upsell_product.id %}
+    {% assign upsell_true = false %} 
+  {% endif %}
+
+{% endfor %}
+
+
+{% assign upsell_true  = true %}
+{% assign upsell_products = section.settings.choose_collection %}
+
+{% for upsell_product in upsell_products  %}
+
+{% for item in cart.items %}
+  {% if item.product.id == upsell_product.id %}
+    {% assign upsell_true = false %} 
+  {% endif %}
+  {% endif %}
+
+  {% endfor %}
+
+
+  {% schema %}
+    {
+      "name": "Car Drawer",
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "free_shipping_text",
+          "label": "Free Shipping Text",
+          "default": "Free next day delivery on all orders"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Title",
+          "default": "Upgrade to a Gift Hamper"
+        },
+        {
+          "type": "product",
+          "id": "choose_product",
+          "label": "Select Product"
+        },
+            {
+          "type": "product",
+          "id": "choose_collection",
+          "label": "Select Product"
+        }
+      ],
+      "presets": [
+        {
+          "name": "Car Drawer"
+        }
+      ]
+    }
+    {% endschema %}
+    
